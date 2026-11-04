@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-netlify-deploy-status",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Strapi 5 dashboard plugin with Netlify deploy status and build statistics widgets.",
   "author": {
     "name": "Vagelis P",
