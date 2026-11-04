@@ -1,4 +1,3 @@
-import React from 'react';
 import { Cloud } from '@strapi/icons';
 import pluginId from './pluginId';
 

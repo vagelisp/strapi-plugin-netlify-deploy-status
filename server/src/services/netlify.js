@@ -6,11 +6,14 @@ const normalizeDeploy = (deploy) => ({
   context: deploy.context,
   branch: deploy.branch,
   commit: deploy.commit_ref,
+  commitMessage: deploy.title || deploy.commit_message,
   commitUrl: deploy.commit_url,
   deployUrl: deploy.deploy_ssl_url || deploy.deploy_url,
+  adminUrl: deploy.admin_url,
   createdAt: deploy.created_at,
   updatedAt: deploy.updated_at,
   publishedAt: deploy.published_at,
+  deployTimeSeconds: deploy.deploy_time,
   errorMessage: deploy.error_message,
 });
 
