@@ -30,7 +30,7 @@ export default ({ strapi }) => ({
     }
 
     const response = await fetch(
-      `https://api.netlify.com/api/v1/sites/${encodeURIComponent(siteId)}/deploys?per_page=1`,
+      `https://api.netlify.com/api/v1/sites/${encodeURIComponent(siteId)}/deploys?per_page=10`,
       {
         headers: {
           Authorization: `Bearer ${netlifyToken}`,
@@ -50,12 +50,28 @@ export default ({ strapi }) => ({
     }
 
     const deploys = await response.json();
-    const latest = Array.isArray(deploys) ? deploys[0] : null;
+    const recentDeploys = Array.isArray(deploys) ? deploys.map(normalizeDeploy) : [];
+    const completedDeploys = recentDeploys.filter((deploy) => Number.isFinite(deploy.deployTimeSeconds));
+    const successfulDeploys = recentDeploys.filter((deploy) => deploy.state === 'ready');
+    const activeDeploys = recentDeploys.filter((deploy) => ['building', 'enqueued', 'processing'].includes(deploy.state));
+    const failedDeploys = recentDeploys.filter((deploy) => deploy.state === 'error');
+    const averageBuildTimeSeconds = completedDeploys.length
+      ? Math.round(completedDeploys.reduce((total, deploy) => total + deploy.deployTimeSeconds, 0) / completedDeploys.length)
+      : null;
 
     return {
       configured: true,
       siteUrl: siteUrl || null,
-      deploy: latest ? normalizeDeploy(latest) : null,
+      deploy: recentDeploys[0] || null,
+      recentDeploys,
+      stats: {
+        sampleSize: recentDeploys.length,
+        successful: successfulDeploys.length,
+        failed: failedDeploys.length,
+        active: activeDeploys.length,
+        successRate: recentDeploys.length ? Math.round((successfulDeploys.length / recentDeploys.length) * 100) : null,
+        averageBuildTimeSeconds,
+      },
     };
   },
 });

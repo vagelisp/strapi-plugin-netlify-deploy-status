@@ -1,5 +1,6 @@
 import { Cloud } from '@strapi/icons';
 import pluginId from './pluginId';
+import './styles.css';
 
 export default {
   register(app) {
@@ -19,6 +20,19 @@ export default {
         },
         component: async () => {
           const { default: Widget } = await import('./components/NetlifyDeployStatusWidget');
+          return Widget;
+        },
+      });
+      app.widgets.register({
+        id: 'netlify-deploy-stats',
+        pluginId,
+        icon: Cloud,
+        title: {
+          id: `${pluginId}.widget.stats.title`,
+          defaultMessage: 'Build stats',
+        },
+        component: async () => {
+          const { default: Widget } = await import('./components/NetlifyDeployStatsWidget');
           return Widget;
         },
       });
