@@ -2,6 +2,11 @@
   "name": "strapi-plugin-netlify-deploy-status",
   "version": "0.1.0",
   "description": "A Strapi 5 dashboard widget for Netlify deploy status.",
+  "author": {
+    "name": "Vagelis P",
+    "email": "hello@vagelis.dev",
+    "url": "https://github.com/vagelisp"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -49,7 +54,6 @@
     "@strapi/design-system": "2.2.4",
     "@strapi/icons": "2.2.4",
     "@strapi/sdk-plugin": "^6.1.1",
-    "@strapi/strapi": "5.61.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "styled-components": "^6.1.8"
