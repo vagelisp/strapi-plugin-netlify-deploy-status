@@ -1,0 +1,57 @@
+{
+  "name": "strapi-plugin-netlify-deploy-status",
+  "version": "0.1.0",
+  "description": "A Strapi 5 dashboard widget for Netlify deploy status.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vagelisp/strapi-plugin-netlify-deploy-status.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vagelisp/strapi-plugin-netlify-deploy-status/issues"
+  },
+  "type": "commonjs",
+  "exports": {
+    "./strapi-admin": {
+      "source": "./admin/src/index.js",
+      "import": "./dist/admin/index.mjs",
+      "require": "./dist/admin/index.js",
+      "default": "./dist/admin/index.js"
+    },
+    "./strapi-server": {
+      "source": "./server/src/index.js",
+      "import": "./dist/server/index.mjs",
+      "require": "./dist/server/index.js",
+      "default": "./dist/server/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["admin", "server", "dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "strapi-plugin build",
+    "verify": "strapi-plugin verify",
+    "prepublishOnly": "npm run build && npm run verify"
+  },
+  "strapi": {
+    "kind": "plugin",
+    "name": "netlify-deploy-status",
+    "displayName": "Netlify Deploy Status"
+  },
+  "peerDependencies": {
+    "@strapi/design-system": "^2.2.4",
+    "@strapi/icons": "^2.2.4",
+    "@strapi/strapi": ">=5.13.0 <6",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "styled-components": "^6.0.0"
+  },
+  "devDependencies": {
+    "@strapi/design-system": "2.2.4",
+    "@strapi/icons": "2.2.4",
+    "@strapi/sdk-plugin": "^6.1.1",
+    "@strapi/strapi": "5.61.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "styled-components": "^6.1.8"
+  }
+}
