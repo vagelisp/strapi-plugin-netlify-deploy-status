@@ -114,6 +114,30 @@ npm run verify
 npm pack --dry-run
 ```
 
+## Publishing from GitHub Actions
+
+The repository includes `.github/workflows/publish.yml`. It publishes a public npm release when a version tag such as `v0.1.1` is pushed, and can also be started manually from the GitHub Actions tab.
+
+The workflow uses npm trusted publishing with GitHub Actions OIDC. It does not require an `NPM_TOKEN` secret and automatically creates npm provenance for releases.
+
+One-time setup on npmjs.com:
+
+1. Open the package settings for `strapi-plugin-netlify-deploy-status` on your personal npm account.
+2. Add a **Trusted Publisher** using **GitHub Actions**.
+3. Set the organization/user to `vagelisp`.
+4. Set the repository to `strapi-plugin-netlify-deploy-status`.
+5. Set the workflow filename to `publish.yml`.
+6. Allow direct `npm publish` for this trusted publisher.
+
+For each release, update the version in `package.json`, commit it, and push a matching tag:
+
+```bash
+npm version patch
+git push origin main --follow-tags
+```
+
+The workflow refuses to publish if the tag version and `package.json` version do not match. The npm trusted publisher must be configured for the personal `vagelisp` account; it is independent of any `notificator-project` npm organization.
+
 ## Troubleshooting
 
 ### The widgets say that Netlify is unavailable
